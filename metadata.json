@@ -1,0 +1,8 @@
+{
+  "name": "LOSTit - Smart Lost & Found",
+  "description": "A serverless-inspired, AI-powered Lost & Found management system. Features item reporting, AI image analysis for auto-tagging, public gallery, and QR code identity verification.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

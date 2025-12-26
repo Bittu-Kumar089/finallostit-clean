@@ -1,0 +1,6 @@
+/* 
+   Styles are now handled by the Tailwind CDN in index.html to ensure 
+   the Preview works correctly without a build step.
+   
+   You can add custom CSS here if needed.
+*/

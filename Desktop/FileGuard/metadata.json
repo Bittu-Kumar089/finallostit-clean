@@ -1,0 +1,5 @@
+{
+  "name": "FileGuard Web",
+  "description": "A web-based intelligent file threat analysis tool. It uses metadata extraction and AI heuristics to analyze files for suspicious patterns, header mismatches, and potential safety risks.",
+  "requestFramePermissions": []
+}

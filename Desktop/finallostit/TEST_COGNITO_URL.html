@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cognito URL Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .box {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 Cognito URL Test</h1>
+    
+    <div class="box">
+        <h3>Current Page URL:</h3>
+        <code id="currentUrl"></code>
+    </div>
+    
+    <div class="box">
+        <h3>Origin (Callback URL):</h3>
+        <code id="origin"></code>
+        <p><strong>⚠️ This EXACT URL must be in Cognito callback URLs!</strong></p>
+    </div>
+    
+    <div class="box">
+        <h3>Generated Cognito Login URL:</h3>
+        <code id="loginUrl"></code>
+    </div>
+    
+    <div class="box">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Copy the "Origin" URL above</li>
+            <li>Go to AWS Cognito → User Pool → App integration → Managed login pages → Edit</li>
+            <li>Add the EXACT origin URL to "Allowed callback URLs"</li>
+            <li>Make sure it uses <code>http://</code> NOT <code>https://</code></li>
+            <li>Save changes and wait 1-2 minutes</li>
+            <li>Click the button below to test</li>
+        </ol>
+    </div>
+    
+    <button onclick="testLogin()">Test Cognito Login</button>
+    
+    <script>
+        const config = {
+            region: 'us-east-1',
+            userPoolId: 'us-east-1_YKElndFwS',
+            clientId: '8spmlgkq5uri5tc3v39jr1vlb',
+            domain: 'us-east-1ykelndfws.auth.us-east-1.amazoncognito.com',
+            scopes: ['email', 'profile', 'openid']
+        };
+        
+        const origin = window.location.origin;
+        const redirectUri = encodeURIComponent(origin);
+        const scopes = config.scopes.join('+');
+        
+        const loginUrl = `https://${config.domain}/login?client_id=${config.clientId}&response_type=code&scope=${scopes}&redirect_uri=${redirectUri}`;
+        
+        document.getElementById('currentUrl').textContent = window.location.href;
+        document.getElementById('origin').textContent = origin;
+        document.getElementById('loginUrl').textContent = loginUrl;
+        
+        function testLogin() {
+            console.log('Redirecting to:', loginUrl);
+            console.log('Callback URL:', origin);
+            window.location.href = loginUrl;
+        }
+    </script>
+</body>
+</html>
+
